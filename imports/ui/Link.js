@@ -1,8 +1,18 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 
 class Link extends React.Component {
+  onLogout = () => {
+    this.props.history.push('/')
+  }
+
   render() {
-    return <p>Link Component here</p>
+    return (
+      <div>
+        <h1>Your Link</h1>
+        <button onClick={this.onLougout}>Logout</button>
+      </div>
+    )
   }
 }
-export default Link
+export default withRouter(Link)
