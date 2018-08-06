@@ -1,19 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Meteor } from 'meteor/meteor'
 
-interface LoginProps {}
-interface LoginState {
-  error: string
-}
-
-class Login extends React.Component<LoginProps, LoginState> {
-  public refs: {
-    email: HTMLInputElement
-    password: HTMLInputElement
-  }
-
-  constructor(props: LoginProps) {
+class Login extends React.Component {
+  constructor(props) {
     super(props)
     this.state = { error: '' }
   }

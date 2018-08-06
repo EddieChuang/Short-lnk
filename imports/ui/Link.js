@@ -1,13 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 
-export interface LinkProps {
-  history: any
-}
-
-class Link extends React.Component<LinkProps, object> {
-  constructor(props: LinkProps) {
+class Link extends React.Component {
+  constructor(props) {
     super(props)
   }
 

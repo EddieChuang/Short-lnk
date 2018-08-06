@@ -1,17 +1,8 @@
-import * as React from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 
-interface SignupProps {}
-interface SignupState {
-  error: string
-}
-
-class Signup extends React.Component<SignupProps, SignupState> {
-  public refs: {
-    email: HTMLInputElement
-    password: HTMLInputElement
-  }
+class Signup extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
