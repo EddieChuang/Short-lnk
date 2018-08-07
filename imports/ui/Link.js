@@ -21,4 +21,5 @@ class Link extends React.Component {
     )
   }
 }
-export default withRouter(Link)
+export default Link
+// export default withRouter(Link)

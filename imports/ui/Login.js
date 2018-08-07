@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { Meteor } from 'meteor/meteor'
 
 class Login extends React.Component {
@@ -16,6 +16,13 @@ class Login extends React.Component {
 
     Meteor.loginWithPassword({ email }, password, err => {
       console.log('Login callback', err)
+      if (err) {
+        this.setState({ error: err.reason })
+      } else {
+        this.setState({ error: '' })
+      }
+
+      // this.props.history.push('/links')
     })
   }
 
@@ -23,8 +30,8 @@ class Login extends React.Component {
     return (
       <div>
         <h1>Login to Short Lnk</h1>
-        {this.state.error ? <p>this.state.error</p> : undefined}
-        <form onSubmit={this.onSubmit}>
+        {this.state.error ? <p>{this.state.error}</p> : undefined}
+        <form onSubmit={this.onSubmit} noValidate>
           <input type="email" ref="email" name="email" placeholder="Email" />
           <input
             type="password"
@@ -40,3 +47,4 @@ class Login extends React.Component {
   }
 }
 export default Login
+// export default withRouter(Login)
