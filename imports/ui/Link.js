@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
+import { Meteor } from 'meteor/meteor'
 import { Links } from '../api'
 import { LinksList } from '.'
 
