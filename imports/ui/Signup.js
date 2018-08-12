@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 
 class Signup extends React.Component {
@@ -14,17 +14,19 @@ class Signup extends React.Component {
     e.preventDefault()
     let email = this.refs.email.value.trim()
     let password = this.refs.password.value.trim()
-    if (password.length < 9) {
+    console.log(email, password)
+    if (password.length < 8) {
       return this.setState({
         error: 'Password must be more than 8 characters long'
       })
     }
+    console.log(email, password)
     Accounts.createUser({ email, password }, err => {
-      console.log('Signup')
       if (err) {
         this.setState({ error: err.reason })
       } else {
         this.setState({ error: '' })
+        this.props.history.push('/')
       }
     })
   }
@@ -50,4 +52,3 @@ class Signup extends React.Component {
   }
 }
 export default Signup
-// export default withRouter(Signup)

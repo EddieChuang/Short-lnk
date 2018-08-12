@@ -1,15 +1,9 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 import { Meteor } from 'meteor/meteor'
-import { Links } from '../api'
 import { LinksList } from '.'
 
 class Link extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   onLogout = () => {
     Accounts.logout()
     this.props.history.push('/')
@@ -19,7 +13,6 @@ class Link extends React.Component {
     e.preventDefault()
     const url = this.refs.url.value.trim()
     if (url) {
-      // Links.insert({ url })
       Meteor.call('links.insert', url)
       this.refs.url.value = ''
     }
@@ -42,4 +35,3 @@ class Link extends React.Component {
   }
 }
 export default Link
-// export default withRouter(Link)

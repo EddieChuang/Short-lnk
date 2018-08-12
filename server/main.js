@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor'
-import { webApp } from 'meteor/webapp'
+import { WebApp } from 'meteor/webapp'
 import '../imports/api/users'
-import '../imports/api/links'
-import '../imports/startup/simple-schema-configuration'
+import { Links } from '../imports/api/links'
+import '../imports/startup/simple-schema-configuration.js'
 
 Meteor.startup(() => {
   WebApp.connectHandlers.use((req, res, next) => {
@@ -10,7 +10,7 @@ Meteor.startup(() => {
     const link = Links.findOne({ _id })
     if (link) {
       res.statusCode = 302
-      res.setHeader('Location', 'http://www.google.com')
+      res.setHeader('Location', link.url)
       res.end()
     } else {
       next()

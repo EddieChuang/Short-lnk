@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Router, Route, Switch } from 'react-router-dom'
 import { Signup, Link, NotFound, Login } from '../ui'
 import history from '../history/history'
@@ -25,7 +24,7 @@ export const onAuthChange = isAuthenticated => {
 
   if (isUnauthenticatedPage && isAuthenticated) {
     history.push('/links')
-  } else {
+  } else if (isAuthenticatedPage && !isAuthenticated) {
     history.push('/')
   }
 }

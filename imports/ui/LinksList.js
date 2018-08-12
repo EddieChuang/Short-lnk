@@ -1,6 +1,7 @@
 import React from 'react'
-import { Links } from '../api'
+import { Tracker } from 'meteor/tracker'
 import { Meteor } from 'meteor/meteor'
+import { Links } from '../api/links'
 
 class LinksList extends React.Component {
   constructor(props) {

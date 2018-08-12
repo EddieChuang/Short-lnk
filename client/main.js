@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor'
-import React from 'react'
 import ReactDOM from 'react-dom'
 import { Tracker } from 'meteor/tracker'
+
 import { routes, onAuthChange } from '../imports/routes/routes'
-import '../imports/startup/simple-schema-configuration'
+import '../imports/startup/simple-schema-configuration.js'
 
 Tracker.autorun(() => {
   const isAuthenticated = !!Meteor.userId()
@@ -11,6 +11,5 @@ Tracker.autorun(() => {
 })
 
 Meteor.startup(() => {
-  Meteor.call('', '', (err, res) => {})
   ReactDOM.render(routes, document.getElementById('app'))
 })

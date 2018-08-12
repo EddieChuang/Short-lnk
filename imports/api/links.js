@@ -18,14 +18,15 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized')
     }
 
+    console.log(url)
+
     new SimpleSchema({
       url: {
         type: String,
         label: 'Your link',
-        regEx: SimpleSchema.RegEx.url
+        regEx: SimpleSchema.RegEx.Url
       }
     }).validate({ url })
-
     Links.insert({ _id: shortid.generate(), url, userId })
   }
 })
