@@ -17,9 +17,6 @@ Meteor.methods({
     if (!userId) {
       throw new Meteor.Error('not-authorized')
     }
-
-    console.log(url)
-
     new SimpleSchema({
       url: {
         type: String,
@@ -28,5 +25,17 @@ Meteor.methods({
       }
     }).validate({ url })
     Links.insert({ _id: shortid.generate(), url, userId })
+  },
+  'links.setVisibility'(_id, visible) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized')
+    }
+
+    new SimpleSchema({
+      _id: { type: String, min: 1 },
+      visible: { type: Boolean }
+    }).validate({ _id, visible })
+
+    Links.update({ _id, userId: this.userId }, { $set: { visible } })
   }
 })

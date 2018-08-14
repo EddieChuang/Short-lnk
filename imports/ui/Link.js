@@ -1,23 +1,12 @@
 import React from 'react'
-import { LinksList, PrivateHeader, AddLink } from '.'
 
-// class Link extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         <PrivateHeader title="Your Links" />
-
-//         <LinksList />
-//         <AddLink />
-//       </div>
-//     )
-//   }
-// }
+import { LinksList, PrivateHeader, AddLink, LinksListFilters } from '.'
 
 const Link = () => {
   return (
     <div>
       <PrivateHeader title="Your Links" />
+      <LinksListFilters />
       <LinksList />
       <AddLink />
     </div>
