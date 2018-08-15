@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { LinksList, PrivateHeader, AddLink, LinksListFilters } from '.'
+import { LinksList, PrivateHeader, AddLink, LinksListFilter } from '.'
 
 const Link = () => {
   return (
     <div>
       <PrivateHeader title="Your Links" />
-      <LinksListFilters />
+      <LinksListFilter />
       <LinksList />
       <AddLink />
     </div>

@@ -24,7 +24,14 @@ Meteor.methods({
         regEx: SimpleSchema.RegEx.Url
       }
     }).validate({ url })
-    Links.insert({ _id: shortid.generate(), url, userId })
+    Links.insert({
+      _id: shortid.generate(),
+      url,
+      userId,
+      visible: true,
+      visitedCount: 0,
+      lastVisitedAt: null
+    })
   },
   'links.setVisibility'(_id, visible) {
     if (!this.userId) {
@@ -37,5 +44,20 @@ Meteor.methods({
     }).validate({ _id, visible })
 
     Links.update({ _id, userId: this.userId }, { $set: { visible } })
+  },
+  'links.trackVisit'(_id) {
+    new SimpleSchema({
+      _id: { type: String, min: 1 }
+    }).validate({ _id })
+
+    Links.update(
+      { _id },
+      {
+        $set: {
+          lastVisitedAt: new Date().getTime()
+        },
+        $inc: { visitedCount: 1 }
+      }
+    )
   }
 })
