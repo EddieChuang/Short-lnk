@@ -43,6 +43,7 @@ class AddLink extends React.Component {
     return (
       <div>
         <button
+          className="button"
           onClick={() => {
             this.setState({ isOpen: true })
           }}>
