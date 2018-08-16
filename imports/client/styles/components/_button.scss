@@ -21,3 +21,9 @@
   color: $button-pill-color;
   padding: 0.3rem 0.8rem;
 }
+
+.button--secondary {
+  background: $button-secondary-bg;
+  border: 1px solid $button-secondary-border-clor;
+  color: $button-secondary-color;
+}
