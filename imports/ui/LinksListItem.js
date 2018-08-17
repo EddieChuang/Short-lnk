@@ -41,7 +41,7 @@ class LinksListItem extends React.Component {
     }
 
     return (
-      <p>
+      <p className="item__message">
         {visitedCount} {visitMessage} {visitedMessage}
       </p>
     )
@@ -51,10 +51,9 @@ class LinksListItem extends React.Component {
     const justCopied = this.state.justCopied
     const { _id, url, shortUrl, visible } = this.props
     return (
-      <div>
-        <p>{url}</p>
-        <p>{shortUrl}</p>
-        <p>{visible.toString()}</p>
+      <div className="item">
+        <h2>{url}</h2>
+        <p className="item__message">{shortUrl}</p>
         {this.renderStats()}
         <a
           className="button button--pill button--link"
