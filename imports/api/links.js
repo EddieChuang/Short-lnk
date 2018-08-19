@@ -24,7 +24,7 @@ Meteor.methods({
         regEx: SimpleSchema.RegEx.Url
       }
     }).validate({ url })
-    Links.insert({
+    return Links.insert({
       _id: shortid.generate(),
       url,
       userId,
@@ -46,11 +46,14 @@ Meteor.methods({
     Links.update({ _id, userId: this.userId }, { $set: { visible } })
   },
   'links.trackVisit'(_id) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized')
+    }
     new SimpleSchema({
       _id: { type: String, min: 1 }
     }).validate({ _id })
 
-    Links.update(
+    return Links.update(
       { _id },
       {
         $set: {
