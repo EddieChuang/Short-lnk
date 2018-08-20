@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { LinksList, PrivateHeader, AddLink, LinksListFilter } from '.'
-
+import { LinksList, AddLink, LinksListFilter } from '.'
+import { PrivateHeader } from './PrivateHeader'
 const Link = () => {
   return (
     <div>

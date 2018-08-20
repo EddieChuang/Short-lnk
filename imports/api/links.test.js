@@ -26,6 +26,9 @@ if (Meteor.isServer) {
           insert()
         }).toThrow()
       })
+      afterEach(() => {
+        Links.remove({})
+      })
     })
     /********** end of 'insert' describe **********/
 
@@ -48,6 +51,9 @@ if (Meteor.isServer) {
         setVisibility.apply({ userId }, [_id, visible])
         expect(Links.findOne({ _id }).fetch()[0].visible).toBe(false)
       })
+      afterEach(() => {
+        Links.remove({})
+      })
     })
     /********** end of 'setVisibility' describe **********/
 
@@ -64,12 +70,36 @@ if (Meteor.isServer) {
         trackVisit.apply({ userId }, [_id])
         expect(Links.findOne({ _id }).fetch()[0].visitedCount).toBe(old + 1)
       })
+      afterEach(() => {
+        Links.remove({})
+      })
     })
     /********** end of trackVisit describe **********/
 
-    afterEach(() => {
-      Links.remove({})
+    /********** publish links describe **********/
+    describe('publish.links', function() {
+      const publishLinks = Meteor.server.public_handlers['links']
+      let _id
+      beforeEach(() => {
+        const url = 'http://www.deeplearningbook.org/'
+        _id = Links.insert({ userId, url })
+      })
+      it('should return user links', function() {
+        const links = publishLinks.apply({ userId }).fetch()
+
+        expect(links.length).toBe(1)
+        expect(links[0]).toEqual(Links.findOne({ _id }))
+      })
+      it('should not return user links', function() {
+        const links = publishLinks.apply({ userId: 'nouser' }).fetch()
+
+        expect(links.length).toBe(0)
+      })
+      afterEach(() => {
+        Links.remove({})
+      })
     })
+    /********** end of publish links describe **********/
   })
   /********** end of 'link' describe **********/
 }

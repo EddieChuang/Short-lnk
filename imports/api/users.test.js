@@ -16,8 +16,8 @@ if (Meteor.isServer) {
       expect(res).toBe(true)
     })
 
-    if('should reject invalid email', function(){
-      expect(()=>{
+    it('should reject invalid email', function() {
+      expect(() => {
         const testUser = {
           emails: [
             {
@@ -28,6 +28,5 @@ if (Meteor.isServer) {
         validateNewUser(testUser).toThrow()
       })
     })
-
   })
 }
