@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Meteor } from 'meteor/meteor'
-import PropTypes from 'prop-types'
-
 import { createContainer } from 'meteor/react-meteor-data'
+import PropTypes from 'prop-types'
 
 export class Login extends React.Component {
   constructor(props) {
