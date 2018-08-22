@@ -4,6 +4,7 @@ import { validateNewUser } from './users'
 
 if (Meteor.isServer) {
   describe('users', function() {
+    beforeEach(() => resetDatabase())
     it('should allow valid email address', function() {
       const testUser = {
         emails: [

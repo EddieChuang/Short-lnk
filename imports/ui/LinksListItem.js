@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Clipboard from 'clipboard'
 import moment from 'moment'
+import { createContainer } from 'meteor/react-meteor-data'
 
 class LinksListItem extends React.Component {
   constructor(props) {
@@ -69,8 +70,9 @@ class LinksListItem extends React.Component {
         </button>
         <button
           className="button button--pill"
+          ref="setVis"
           onClick={() => {
-            Meteor.call('links.setVisibility', _id, !visible)
+            this.props.linksSetVisibility(_id, !visible)
           }}>
           {visible ? 'Hide' : 'Unhide'}
         </button>
@@ -86,7 +88,14 @@ LinksListItem.propTypes = {
   visible: PropTypes.bool.isRequired,
   shortUrl: PropTypes.string.isRequired,
   visitedCount: PropTypes.number.isRequired,
-  lastVisitedAt: PropTypes.number
+  lastVisitedAt: PropTypes.number,
+  linksSetVisibility: PropTypes.func.isRequired
 }
 
-export default LinksListItem
+export default createContainer(() => {
+  return {
+    linksSetVisibility: (_id, visible) => {
+      Meteor.call('links.setVisibility', _id, visible)
+    }
+  }
+}, LinksListItem)

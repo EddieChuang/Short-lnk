@@ -55,7 +55,7 @@ export class Signup extends React.Component {
 }
 
 Signup.propTypes = {
-  createUser: propTypes.func.isRequired
+  createUser: PropTypes.func.isRequired
 }
 
 export default createContainer(() => {

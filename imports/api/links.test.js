@@ -1,7 +1,9 @@
+import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import { Random } from 'meteor/random'
 import expect from 'expect'
 import { Links } from './links'
+import { resetDatabase } from 'meteor/xolvio:cleaner'
 
 if (Meteor.isServer) {
   describe('links', function() {
@@ -9,8 +11,8 @@ if (Meteor.isServer) {
 
     /********** insert describe **********/
     describe('insert', function() {
-      const insert = Meteor.isServer.method_handlers['links.insert']
-
+      const insert = Meteor.server.method_handlers['links.insert']
+      beforeEach(() => resetDatabase())
       it('should insert valid link', function() {
         const url = 'https://www.meteor.com/tutorials/react/testing'
         const _id = insert.apply({ userId }, [url])
@@ -34,10 +36,11 @@ if (Meteor.isServer) {
 
     /********** setVisibility describe **********/
     describe('setVisibility', function() {
-      const setVisibility =
-        Meteor.isServer.method_handlers['links.setVisibility']
+      const setVisibility = Meteor.server.method_handlers['links.setVisibility']
       let _id
       beforeEach(() => {
+        resetDatabase()
+
         const url = 'https://www.meteor.com'
         _id = Links.insert({ userId, url })
       })
@@ -51,17 +54,16 @@ if (Meteor.isServer) {
         setVisibility.apply({ userId }, [_id, visible])
         expect(Links.findOne({ _id }).fetch()[0].visible).toBe(false)
       })
-      afterEach(() => {
-        Links.remove({})
-      })
     })
     /********** end of 'setVisibility' describe **********/
 
     /********** trackVisit describe **********/
     describe('trackVisit', function() {
-      const trackVisit = Meteor.isServer.method_handlers['links.trackVisit']
+      const trackVisit = Meteor.server.method_handlers['links.trackVisit']
       let _id
       beforeEach(() => {
+        resetDatabase()
+
         const url = 'http://www.deeplearningbook.org/'
         _id = Links.insert({ userId, url })
       })
@@ -69,9 +71,6 @@ if (Meteor.isServer) {
         const old = Links.findOne({ _id }).fetch()[0].visitedCount
         trackVisit.apply({ userId }, [_id])
         expect(Links.findOne({ _id }).fetch()[0].visitedCount).toBe(old + 1)
-      })
-      afterEach(() => {
-        Links.remove({})
       })
     })
     /********** end of trackVisit describe **********/
@@ -81,6 +80,8 @@ if (Meteor.isServer) {
       const publishLinks = Meteor.server.public_handlers['links']
       let _id
       beforeEach(() => {
+        resetDatabase()
+
         const url = 'http://www.deeplearningbook.org/'
         _id = Links.insert({ userId, url })
       })
@@ -94,9 +95,6 @@ if (Meteor.isServer) {
         const links = publishLinks.apply({ userId: 'nouser' }).fetch()
 
         expect(links.length).toBe(0)
-      })
-      afterEach(() => {
-        Links.remove({})
       })
     })
     /********** end of publish links describe **********/
