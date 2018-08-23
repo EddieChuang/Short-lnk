@@ -24,7 +24,7 @@ class LinksListItem extends React.Component {
         }, 1000)
       })
       .on('error', () => {
-        alert('success')
+        alert('error')
       })
   }
 

@@ -18,7 +18,15 @@ if (Meteor.isClient) {
         const wrapper = mount(<LinksListItem shortUrl={shortUrl} {...link} />)
         wrapper.ref('setVis').simulate('click')
 
-        expect(wrapper.ref('setVis')).toBe(undefined)
+        expect(wrapper.ref('setVis').text()).toBe('Unhidden')
+      })
+    })
+    describe('copy', function() {
+      it('should copy url to clipboard', function() {
+        const shortUrl = Meteor.absoluteUrl(link._id)
+        const wrapper = mount(<LinksListItem shortUrl={shortUrl} {...link} />)
+        wrapper.ref('copy').simulate('click')
+        expect(wrapper.ref('copy').text()).toBe('Copied')
       })
     })
   })
